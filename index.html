@@ -24,19 +24,25 @@
 	</body>
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded",function(){
+			//setting up canvas sizes
 			var canvas = document.getElementById("canvas");
+		    canvas.setAttribute("width", getComputedStyle(canvas.parentNode).width);
+		    canvas.setAttribute("height", getComputedStyle(canvas.parentNode).height);
 			if (canvas.getContext) {
 			    window.ctx = canvas.getContext('2d');
-
-			    ctx.beginPath();
+			    window.a_dotes = [];
 			    var i = 0;
 				canvas.onclick = function (event){
-					if(i == 0)
-						ctx.moveTo(Math.floor(event.offsetX), Math.floor(event.offsetY));
-					else
-						ctx.lineTo(Math.floor(event.offsetX), Math.floor(event.offsetY));
+					var x = Math.floor(event.offsetX);
+					var y = Math.floor(event.offsetY);
+
+					a_dotes.push({x : x, y : y});
+			    	ctx.beginPath();
+					ctx.arc(x, y, 5, 0, Math.PI * 2, true);
+					ctx.fill();
+
 					console.log("Точка номер " + i++);
-			    	
+
 				};
 		  	}
 		});
